@@ -5,6 +5,7 @@
 #include <boost/asio/post.hpp>
 #include <boost/program_options.hpp>
 #include "net/server.hpp"
+#include "dictionary/dictionary.hpp"
 
 namespace cli = boost::program_options;
 
@@ -31,7 +32,8 @@ int main( int argc , char** argv )
     {
         boost::asio::io_context ctx;
 
-        server srv { ctx , port };
+        dictionary dict;
+        server     srv { ctx , dict , port };
 
         boost::asio::thread_pool pool( n_threads );
 

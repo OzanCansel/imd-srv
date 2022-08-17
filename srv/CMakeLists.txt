@@ -18,6 +18,14 @@ add_executable(
     net/connection.cpp
     net/server.hpp
     net/server.cpp
+    dictionary/dictionary.hpp
+    dictionary/dictionary.cpp
+)
+
+target_include_directories(
+    srv
+    PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 target_link_libraries(

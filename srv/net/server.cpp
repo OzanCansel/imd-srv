@@ -2,8 +2,9 @@
 #include <cstdint>
 #include <iostream>
 
-server::server( io_context& ctx , int port )
-    :   m_ctx { ctx }
+server::server( io_context& ctx , dictionary& dict , int port )
+    :   m_dictionary { dict }
+    ,   m_ctx { ctx }
     ,   m_acceptor
         {
             ctx ,
@@ -19,7 +20,7 @@ server::server( io_context& ctx , int port )
 
 void server::accept()
 {
-    auto candidate = connection::create( m_ctx );
+    auto candidate = connection::create( m_ctx , m_dictionary );
 
     m_acceptor.async_accept(
         candidate->sck() ,

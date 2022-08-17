@@ -1,19 +1,21 @@
 #include "connection.hpp"
 #include <boost/asio/read_until.hpp>
 #include <boost/bind.hpp>
+#include <boost/algorithm/string.hpp>
 #include <string>
 #include <iostream>
 #include <iterator>
 
-connection::pointer connection::create( io_context& ctx )
+connection::pointer connection::create( io_context& ctx , dictionary& dict )
 {
     return pointer(
-        new connection { ctx }
+        new connection { ctx , dict }
     );
 }
 
-connection::connection( io_context& ctx )
+connection::connection( io_context& ctx , dictionary& dict )
     :   m_sck { ctx }
+    ,   m_dictionary { dict }
 {}
 
 connection::socket& connection::sck()
@@ -76,16 +78,12 @@ void connection::parse()
 
         std::string value;
         getline( is , value );
+        boost::trim_left( value );
 
         if ( empty( key ) || empty( value ) )
             return;
 
-        std::cout << "append { key : "
-                  << key
-                  << " , value : "
-                  << value
-                  << " }"
-                  << std::endl;
+        m_dictionary.assign( key , value );
     }
     else if ( cmd == "-" )
     {
@@ -96,10 +94,7 @@ void connection::parse()
         if ( empty( key ) )
             return;
 
-        std::cout << "remove { key : "
-                    << key
-                    << " }"
-                    << std::endl;
+        m_dictionary.remove( key );
     }
     else if ( cmd == "?" )
     {
@@ -110,9 +105,11 @@ void connection::parse()
         if ( empty( key ) )
             return;
 
-        std::cout << "get { key : "
-                    << key
-                    << " }"
-                    << std::endl;
+        auto value = m_dictionary.fetch( key ) + '\n';
+
+        m_sck.async_write_some(
+            boost::asio::buffer( value ) ,
+            []( boost::system::error_code , std::size_t ){}
+        );
     }
 }

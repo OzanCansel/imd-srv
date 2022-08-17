@@ -5,6 +5,7 @@
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/streambuf.hpp>
 #include <array>
+#include "dictionary/dictionary.hpp"
 
 class connection : public boost::enable_shared_from_this<connection>
 {
@@ -18,19 +19,20 @@ public:
     using socket     = boost::asio::ip::tcp::socket;
     using streambuf  = boost::asio::streambuf;
 
-    static pointer create( io_context& );
+    static pointer create( io_context& , dictionary& );
 
     socket& sck();
     void    start();
 
 private:
 
-    connection( io_context& );
+    connection( io_context& , dictionary& );
 
     void process( boost::system::error_code , std::size_t );
     void parse();
     void print_disconnected();
 
-    streambuf m_buffer;
-    socket    m_sck;
+    streambuf   m_buffer;
+    socket      m_sck;
+    dictionary& m_dictionary;
 };
