@@ -27,7 +27,8 @@ private:
 
     connection( io_context& );
 
-    void parse( boost::system::error_code , std::size_t );
+    void process( boost::system::error_code , std::size_t );
+    void parse();
     void print_disconnected();
 
     streambuf m_buffer;

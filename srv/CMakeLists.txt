@@ -25,3 +25,9 @@ target_link_libraries(
     Boost::program_options
     Boost::thread
 )
+
+target_compile_features(
+    srv
+    PRIVATE
+    cxx_std_17
+)

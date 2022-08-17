@@ -3,6 +3,7 @@
 #include <boost/bind.hpp>
 #include <string>
 #include <iostream>
+#include <iterator>
 
 connection::pointer connection::create( io_context& ctx )
 {
@@ -27,7 +28,7 @@ void connection::start()
         m_buffer ,
         '\n' ,
         boost::bind(
-            &connection::parse ,
+            &connection::process ,
             shared_from_this() ,
             boost::placeholders::_1 ,
             boost::placeholders::_2
@@ -35,7 +36,7 @@ void connection::start()
     );
 }
 
-void connection::parse( boost::system::error_code ec , std::size_t bytes_read )
+void connection::process( boost::system::error_code ec , std::size_t bytes_read )
 {
     if ( ec == boost::asio::error::eof )
     {
@@ -43,12 +44,7 @@ void connection::parse( boost::system::error_code ec , std::size_t bytes_read )
     }
     else
     {
-        std::string  line;
-        std::istream is( &m_buffer );
-
-        std::getline( is , line );
-
-        std::cout << line << std::endl;
+        parse();
     }
 
     start();
@@ -62,4 +58,61 @@ void connection::print_disconnected()
               << ':'
               << endpoint.port()
               << " disconnected.\n";
+}
+
+void connection::parse()
+{
+    std::istream is( &m_buffer );
+
+    std::string cmd;
+
+    is >> cmd;
+
+    if ( cmd == "+" )
+    {
+        std::string key;
+
+        is >> key;
+
+        std::string value;
+        getline( is , value );
+
+        if ( empty( key ) || empty( value ) )
+            return;
+
+        std::cout << "append { key : "
+                  << key
+                  << " , value : "
+                  << value
+                  << " }"
+                  << std::endl;
+    }
+    else if ( cmd == "-" )
+    {
+        std::string key;
+
+        is >> key;
+
+        if ( empty( key ) )
+            return;
+
+        std::cout << "remove { key : "
+                    << key
+                    << " }"
+                    << std::endl;
+    }
+    else if ( cmd == "?" )
+    {
+        std::string key;
+
+        is >> key;
+
+        if ( empty( key ) )
+            return;
+
+        std::cout << "get { key : "
+                    << key
+                    << " }"
+                    << std::endl;
+    }
 }
