@@ -21,12 +21,12 @@ int main( int argc , char** argv )
     if ( n_threads <= 0 )
         n_threads = std::thread::hardware_concurrency();
 
-    std::cout << std::string( 40 , '=' )    << '\n'
-              << "dictionary server starting...\n"
-              << std::string( 40 , '=' )    << '\n'
+    std::cout << std::string( 40 , '-' )    << '\n'
+              << "In-memory dictionary server starting...\n"
+              << std::string( 40 , '-' )    << '\n'
               << " threads : " << n_threads << '\n'
               << " port    : " << port      << '\n'
-              << std::string( 40 , '=' )    << std::endl;
+              << std::string( 40 , '-' )    << std::endl;
 
     try
     {

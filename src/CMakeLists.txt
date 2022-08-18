@@ -1,6 +1,3 @@
-cmake_minimum_required( VERSION 3.10 )
-project( srv )
-
 find_package(
     Boost
 
@@ -12,7 +9,7 @@ find_package(
 )
 
 add_executable(
-    srv
+    imd-srv
     main.cpp
     net/connection.hpp
     net/connection.cpp
@@ -23,19 +20,19 @@ add_executable(
 )
 
 target_include_directories(
-    srv
+    imd-srv
     PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 target_link_libraries(
-    srv
+    imd-srv
     Boost::program_options
     Boost::thread
 )
 
 target_compile_features(
-    srv
+    imd-srv
     PRIVATE
     cxx_std_17
 )
