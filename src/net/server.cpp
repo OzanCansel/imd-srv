@@ -24,7 +24,7 @@ void server::accept()
 
     m_acceptor.async_accept(
         candidate->sck() ,
-        [ this , candidate = std::move( candidate ) ]( const boost::system::error_code& err )
+        [ this , candidate = candidate ]( const boost::system::error_code& err )
         {
             auto endpoint = candidate->sck().remote_endpoint();
 
