@@ -2,6 +2,7 @@
 #include <boost/asio/read_until.hpp>
 #include <boost/bind.hpp>
 #include <boost/algorithm/string.hpp>
+#include <boost/format.hpp>
 #include <string>
 #include <iostream>
 #include <iterator>
@@ -72,43 +73,46 @@ void connection::parse()
 
     if ( cmd == "+" )
     {
-        std::string key;
+        std::string req_id , key;
 
-        is >> key;
+        is >> req_id >> key;
 
         std::string value;
         getline( is , value );
         boost::trim_left( value );
 
-        if ( empty( key ) || empty( value ) )
+        if ( empty( req_id ) || empty( key ) || empty( value ) )
             return;
 
         m_dictionary.assign( key , value );
     }
     else if ( cmd == "-" )
     {
-        std::string key;
+        std::string req_id , key;
 
-        is >> key;
+        is >> req_id >> key;
 
-        if ( empty( key ) )
+        if ( empty( req_id ) || empty( key ) )
             return;
 
         m_dictionary.remove( key );
     }
     else if ( cmd == "?" )
     {
-        std::string key;
+        std::string req_id , key;
 
-        is >> key;
+        is >> req_id >> key;
 
-        if ( empty( key ) )
+        if ( empty( req_id ) || empty( key ) )
             return;
 
-        auto value = m_dictionary.fetch( key ) + '\n';
+        std::string value { m_dictionary.fetch( key ) };
+        std::string response {
+            ( boost::format( "%1% %2%\n" ) % req_id % value ).str()
+        };
 
         m_sck.async_write_some(
-            boost::asio::buffer( value ) ,
+            boost::asio::buffer( response ) ,
             []( boost::system::error_code , std::size_t ){}
         );
     }
