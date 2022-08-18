@@ -66,5 +66,12 @@ cli::variables_map parse_args( int argc , char** argv )
     cli::store( cli::parse_command_line( argc , argv , desc ) , vm );
     cli::notify( vm );
 
+    if ( vm.count( "help" ) )
+    {
+        std::cout << desc << std::endl;
+
+        exit( EXIT_SUCCESS );
+    }
+
     return vm;
 }
