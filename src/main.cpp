@@ -1,9 +1,9 @@
 #include <iostream>
 #include <thread>
 #include <boost/asio/io_context.hpp>
-#include <boost/asio/thread_pool.hpp>
 #include <boost/asio/post.hpp>
 #include <boost/program_options.hpp>
+#include <boost/thread.hpp>
 #include "net/server.hpp"
 #include "dictionary/dictionary.hpp"
 
@@ -35,17 +35,17 @@ int main( int argc , char** argv )
         dictionary dict;
         server     srv { ctx , dict , port };
 
-        boost::asio::thread_pool pool( n_threads );
+        boost::thread_group threads;
 
-        boost::asio::post(
-            pool ,
-            [ &ctx ]
-            {
-                ctx.run();
-            }
-        );
-        
-        pool.join();
+        for ( auto n = 0; n < n_threads; ++n )
+            threads.create_thread(
+                boost::bind(
+                    &boost::asio::io_context::run ,
+                    &ctx
+                )
+            );
+
+        threads.join_all();
     }
     catch ( const std::exception& e )
     {
