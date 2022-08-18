@@ -16,7 +16,7 @@ int main( int argc , char** argv )
     auto config = parse_args( argc , argv );
 
     int n_threads = config[ "threads" ].as<int>();
-    int port      = config[ "port" ].as<int>();
+    int port      = config[ "port"    ].as<int>();
 
     if ( n_threads <= 0 )
         n_threads = std::thread::hardware_concurrency();
