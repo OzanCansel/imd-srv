@@ -11,7 +11,7 @@ public:
 
     using map_t = std::unordered_map<std::string , std::string>;
 
-    void        assign( const std::string& key , const std::string& val );
+    void        put( const std::string& key , const std::string& val );
     void        remove( const std::string& key );
     std::string fetch( const std::string& key ) const;
 

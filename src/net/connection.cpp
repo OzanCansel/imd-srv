@@ -84,7 +84,7 @@ void connection::parse()
         if ( empty( req_id ) || empty( key ) || empty( value ) )
             return;
 
-        m_dictionary.assign( key , value );
+        m_dictionary.put( key , value );
     }
     else if ( cmd == "-" )
     {

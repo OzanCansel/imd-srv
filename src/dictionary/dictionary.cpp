@@ -1,7 +1,7 @@
 #include "dictionary.hpp"
 #include <mutex>
 
-void dictionary::assign( const std::string& key , const std::string& value )
+void dictionary::put( const std::string& key , const std::string& value )
 {
     std::unique_lock<std::shared_timed_mutex> w( m_mtx );
 
