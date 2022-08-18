@@ -48,9 +48,8 @@ void connection::process( boost::system::error_code ec , std::size_t bytes_read 
     else
     {
         parse();
+        start();
     }
-
-    start();
 }
 
 void connection::print_disconnected()
