@@ -12,7 +12,7 @@ Allowed options:
 ```
 
 ### Commands
-`imd-srv` reads stream line-by-line from its clients and performs required operations if it is properly constructed command.
+`imd-srv` reads stream line-by-line from its clients and performs required operations if it is a properly constructed command.
 All commands are text based and a command starts with `opcode` which is a single character such as `+` and ends with `\n` character.
 
 #### Put
