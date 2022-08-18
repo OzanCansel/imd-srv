@@ -1,6 +1,6 @@
 #include "connection.hpp"
 #include <boost/asio/read_until.hpp>
-#include <boost/bind.hpp>
+#include <boost/bind/bind.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/format.hpp>
 #include <string>

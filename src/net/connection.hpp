@@ -4,6 +4,7 @@
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/streambuf.hpp>
+#include <boost/shared_ptr.hpp>
 #include <array>
 #include "dictionary/dictionary.hpp"
 
