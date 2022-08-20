@@ -3,6 +3,7 @@
 #include <boost/asio/write.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/format.hpp>
+#include <sstream>
 
 static constexpr auto INAPPROPRIATE_COMMAND = "INAPPROPRIATE_COMMAND";
 static constexpr auto NO_SUCH_A_KEY         = "NO_SUCH_A_KEY";
@@ -51,7 +52,11 @@ void connection::handle_read_line( const boost::system::error_code& err )
     if ( err )
         return;
 
-    std::istream is( &m_buffer );
+    std::istream ts( &m_buffer );
+    std::string line;
+    std::getline( ts , line );
+
+    std::stringstream is { line };
 
     std::string cmd;
 
@@ -135,8 +140,6 @@ void connection::handle_read_line( const boost::system::error_code& err )
     {
         send_error( INAPPROPRIATE_COMMAND );
     }
-
-    m_buffer.consume( m_buffer.size() );
 
     read_line();
 }
