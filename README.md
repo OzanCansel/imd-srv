@@ -18,7 +18,7 @@ Allowed options:
 
 ### Commands
 `imd-srv` reads stream line-by-line from its clients and performs required operations if it is a properly constructed command.
-All commands are text based and a command starts with `opcode` which is a word such as `put`,`get`,`remove` and ends with `\n` character.
+All commands are text based and a command starts with `opcode` which is a word such as `put`, `get`, `remove` and ends with `\n` character.
 
 #### Put
 Puts specified key value pairs in map.
