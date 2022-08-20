@@ -1,5 +1,5 @@
 # imd-srv
-A tcp server application which allows clients to `put`, `remove` and `get` desired `key`-`value` pairs in-memory.
+A tcp server application which allows clients to `put`, `remove` and `get` desired `key`-`value` pairs which are stored in-memory.
 
 It is multithreaded and fully asynchronous server.
 
