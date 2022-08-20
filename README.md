@@ -3,6 +3,11 @@ A tcp server application which allows clients to `put`, `remove` and `get` desir
 
 It is multithreaded and fully asynchronous server.
 
+- Requires a C++17 compliant compiler
+- `asio`, `thread` and `program options` components should be installed on the system.
+
+Only tested on Ubuntu 20.04 with GCC 11.2.0 and Boost v1.74
+
 ### Synopsis
 ```console
 Allowed options:
