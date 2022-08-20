@@ -9,7 +9,6 @@ static constexpr auto INAPPROPRIATE_COMMAND = "INAPPROPRIATE_COMMAND";
 static constexpr auto NO_SUCH_A_KEY         = "NO_SUCH_A_KEY";
 static constexpr auto MISSING_REQ_ID        = "MISSING_REQ_ID";
 static constexpr auto MISSING_KEY           = "MISSING_KEY";
-static constexpr auto MISSING_VALUE         = "MISSING_VALUE";
 
 connection::pointer connection::create( io_context& ctx , dictionary& dict )
 {
@@ -72,7 +71,7 @@ void connection::handle_read_line( const boost::system::error_code& err )
         getline( is , value );
         boost::trim_left( value );
 
-        if ( !req_id.empty() && !key.empty() && !value.empty() )
+        if ( !req_id.empty() && !key.empty() )
         {
             m_dictionary.put( key , value );
 
@@ -85,10 +84,6 @@ void connection::handle_read_line( const boost::system::error_code& err )
         else if ( key.empty() )
         {
             send_error( move( req_id ) , MISSING_KEY );
-        }
-        else if ( value.empty() )
-        {
-            send_error( move( req_id ) , MISSING_VALUE );
         }
     }
     else if ( cmd == "remove" )
