@@ -4,11 +4,11 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/format.hpp>
 
-static constexpr auto INAPPROPRIATE_COMMAND  = "INAPPROPRIATE_COMMAND";
-static constexpr auto NO_SUCH_A_KEY          = "NO_SUCH_A_KEY";
-static constexpr auto MISSING_REQ_ID         = "MISSING_REQ_ID";
-static constexpr auto MISSING_KEY            = "MISSING_KEY";
-static constexpr auto MISSING_VALUE          = "MISSING_VALUE";
+static constexpr auto INAPPROPRIATE_COMMAND = "INAPPROPRIATE_COMMAND";
+static constexpr auto NO_SUCH_A_KEY         = "NO_SUCH_A_KEY";
+static constexpr auto MISSING_REQ_ID        = "MISSING_REQ_ID";
+static constexpr auto MISSING_KEY           = "MISSING_KEY";
+static constexpr auto MISSING_VALUE         = "MISSING_VALUE";
 
 connection::pointer connection::create( io_context& ctx , dictionary& dict )
 {
