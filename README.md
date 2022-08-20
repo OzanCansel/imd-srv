@@ -27,7 +27,6 @@ put <msg_id> <key> <value>
 # or responds with one of the errors below :
 error error MISSING_REQ_ID
 <msg_id> error MISSING_KEY
-<msg_id> error MISSING_VALUE
 ```
 
 #### Remove
