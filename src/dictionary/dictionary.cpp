@@ -15,14 +15,14 @@ void dictionary::remove( const std::string& key )
     m_kv.erase( key );
 }
 
-std::string dictionary::fetch( const std::string& key ) const
+dictionary::nullable_str dictionary::get( const std::string& key ) const
 {
     std::shared_lock<std::shared_timed_mutex> r( m_mtx );
 
     auto it = m_kv.find( key );
 
     if ( it == end( m_kv ) )
-        return std::string {};
+        return nullable_str {};
     else
         return it->second;
 }
