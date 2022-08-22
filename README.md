@@ -21,7 +21,7 @@ Allowed options:
 All commands are text based and a command starts with `opcode` which is a word such as `put`, `get`, `remove` and ends with `\n` character.
 
 #### Put
-Puts specified key value pairs in map.
+Puts specified `key` `value` pairs in map.
 ```console
 put <msg_id> <key> <value>
 # or responds with one of the errors below :
@@ -30,7 +30,7 @@ error error MISSING_REQ_ID
 ```
 
 #### Remove
-Removes specified key from map.
+Removes specified `key` from map.
 
 ``` console
 # If key doesn't exist or removed respond with :
@@ -41,7 +41,7 @@ error error MISSING_REQ_ID
 ````
 
 #### Get
-Asks for value of the <key>
+Asks for the value of the `key`
 
 ```console
 get <msg_id> <key>
