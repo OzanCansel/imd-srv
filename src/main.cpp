@@ -30,7 +30,7 @@ int main( int argc , char** argv )
 
     try
     {
-        boost::asio::io_context ctx;
+        boost::asio::io_context ctx { n_threads };
 
         dictionary dict;
         server     srv { ctx , dict , port };
